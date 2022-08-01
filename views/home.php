@@ -26,7 +26,7 @@
             <?php foreach ($filteredByCategory as $product) : ?>
                 <a class="m-2 text-decoration-none text-reset" href="product&id=<?= $product->id ?>">
                     <div class="card" style="width: 18rem;">
-                        <img src="http://via.placeholder.com/640x360" class="card-img-top" alt="...">
+                        <img src="<?= $product->image ? 'public/images/' . $product->image : 'http://via.placeholder.com/640x360'?> class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title"><?= $product->name ?></h5>
                             <span class="text-muted">Catégorie : <?= $product->category_name ?></span>
@@ -43,7 +43,7 @@
             <?php foreach ($products as $product) : ?>
                 <a class="m-2 text-decoration-none text-reset" href="product&id=<?= $product->id ?>">
                     <div class="card" style="width: 18rem;">
-                        <img src="http://via.placeholder.com/640x360" class="card-img-top" alt="...">
+                        <img src="<?= $product->image ? 'public/images/' . $product->image : 'http://via.placeholder.com/640x360'?>" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title"><?= $product->name ?></h5>
                             <span class="text-muted">Catégorie : <?= $product->category_name ?></span>

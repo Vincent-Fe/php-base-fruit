@@ -20,7 +20,7 @@ try {
         } elseif ($page === "create") {
             $productController->setProduct();
         } elseif ($page === "edit") {
-            $productController->updateProduct();
+            $productController->setProduct();
         } elseif ($page === "delete") {
             $productController->deleteProduct();
         } elseif ($page === "product") {

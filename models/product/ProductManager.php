@@ -30,23 +30,27 @@ class ProductManager extends Database
         return $product;
     }
 
-    public function setProduct($name, $description)
+    public function setProduct($name, $description, $category_id, $file)
     {
-        $req = "INSERT INTO product VALUES (DEFAULT, :name, :iduser, :description)";
+        $req = "INSERT INTO product VALUES (DEFAULT, :name, :iduser, :description, :category_id, :image)";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(":name", $name);
         $stmt->bindValue(":description", $description);
         $stmt->bindValue(":iduser", 1);
+        $stmt->bindValue(":category_id", $category_id);
+        $stmt->bindValue(":image", $file);
         $stmt->execute();
     }
 
 
-    public function updateProduct($name, $id, $description)
+    public function updateProduct($id,$name, $description, $category_id, $file)
     {
-        $req = "UPDATE product SET name = :name, description = :description WHERE id = :id";
+        $req = "UPDATE product SET name = :name, description = :description, category_id = :category_id, image = :image WHERE id = :id";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(":name", $name);
         $stmt->bindValue(":description", $description);
+        $stmt->bindValue(":category_id", $category_id);
+        $stmt->bindValue(":image", $file);
         $stmt->bindValue(":id", $id);
         $stmt->execute();
     }

@@ -1,8 +1,11 @@
 <?php
+session_start();
 // $pdo = require_once './data/database.php';
 require_once './controllers/product/ProductController.php';
+require_once './controllers/user/UserController.php';
 
 $productController = new ProductController();
+$userController = new UserController();
 
 $page = $_GET['page'] ?? '';
 
@@ -25,6 +28,12 @@ try {
             $productController->deleteProduct();
         } elseif ($page === "product") {
             $productController->getProduct();
+        } elseif ($page === "register") {
+            $userController->register();
+        } elseif ($page === "login") {
+            $userController->login();
+        } elseif ($page === "logout") {
+            $userController->logout();
         }
     }
 } catch (Exception $e) {

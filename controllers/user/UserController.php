@@ -108,16 +108,6 @@ class UserController
             }
          
         }
-
-
-
-
-
-
-
-
-
-
         require_once './views/users/form-user.php';
     }
 

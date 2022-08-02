@@ -21,6 +21,12 @@ class ProductController
     public function getProducts()
     {
         $products = $this->productManager->getProducts();
+        // echo '<pre>';
+        // print_r($products);
+        // echo '</pre>';
+        // die();
+
+
         $categories = $this->categoryManager->getCategories();
         $filteredByCategory = '';
 
@@ -28,8 +34,12 @@ class ProductController
 
             $filteredByCategory = array_filter($products, function ($product) {
                 $catId = $_POST['category_id'];
+                // print_r($catId == $product->category_id);
                 return $catId == $product->category_id;
             });
+            // echo "<pre>";
+            // print_r($filteredByCategory);
+            // echo "</pre>";
         }
 
 
@@ -62,17 +72,18 @@ class ProductController
 
         if ($id) {
             $product = $this->productManager->getProduct($id);
-            $file = $product->image ?? '';
+            $file = $product->image;
             $productCatId = $product->category_id;
-            
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'];
             $description = $_POST['description'];
-            $category_id = $_POST['category_id'];
+            $categoryId = $_POST['category'];
 
-            if (isset($_FILES['file'])){
+
+
+            if (isset($_FILES['file'])) {
                 $tmpName = $_FILES['file']['tmp_name'];
                 $file = $_REQUEST['image'] ?? $_FILES['file']['name'];
                 $size = $_FILES['file']['size'];
@@ -80,7 +91,8 @@ class ProductController
 
             $tabExtension = explode('.', $file);
             $extension = strtolower(end($tabExtension));
-            $maxSize = 10485760 ;
+            $maxSize = 400000;
+
 
             if (!$name) {
                 $error = 'Champ à renseigner';
@@ -91,26 +103,53 @@ class ProductController
             }
 
             if (!$error) {
-                $uniqueName = uniqid('',true);
-                if ($_REQUEST['image']){
+
+                $uniqName = uniqid('', true);
+
+
+
+                if ($_REQUEST['image']) {
                     $file = $file;
                 } else {
-                    $file = $uniqueName . '.' . $extension;
+                    $file = $uniqName . '.' . $extension;
                 }
 
                 move_uploaded_file($tmpName, './public/images/' . $file);
 
-
                 if ($id) {
-                    $this->productManager->updateProduct($id, $name, $description, $category_id, $file);
+                    $this->productManager->updateProduct($name, $id, $description, $categoryId, $file);
                 } else {
-                    $this->productManager->setProduct($name, $description, $category_id, $file);
-            }
+                    $this->productManager->setProduct($name, $description, $categoryId, $file);
+                }
+
+
+
                 header('Location: home');
             }
         }
         require_once './views/product/form-product.php';
     }
+
+    // public function updateProduct()
+    // {
+    //     $error = "";
+    //     $id = $_GET['id'] ?? '';
+
+    //     if ($id) {
+    //         $product = $this->productManager->getProduct($id);
+    //     }
+
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    //         $name = $_POST['name'];
+    //         $description = $_POST['description'];
+    //         $this->productManager->updateProduct($name, $id, $description);
+    //         header('Location: home');
+    //     }
+
+    //     require_once './views/product/form-product.php';
+    // }
+
 
     public function deleteProduct()
     {
@@ -118,7 +157,7 @@ class ProductController
 
         if ($id) {
             $product = $this->productManager->getProduct($id);
-            unlink('./public/images/' . $product->image);
+            unlink('public/images/' . $product->image);
             $this->productManager->deleteProduct($id);
             header('Location: home');
         }

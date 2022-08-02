@@ -7,14 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHP - Les bases</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="public/css/style.css">
 
 </head>
 
-<body>
+<body class="d-flex flex-column vh-100">
     <?php require_once './includes/header.php' ?>
 
-    <div class="container">
-        <?= $content ?>
+    <div class="container d-flex flex-fill align-items-center justify-content-center">
+        <div class="d-flex flex-column w-100">
+            <?= $content ?>
+        </div>
     </div>
 
 

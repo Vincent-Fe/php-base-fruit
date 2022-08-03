@@ -1,4 +1,7 @@
 <?php
+namespace models\product;
+
+use models\Database;
 
 require_once 'models/Database.php';
 class ProductManager extends Database

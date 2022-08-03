@@ -11,12 +11,12 @@
         <h3><?= $product->name ?></h3>
         <span class="text-muted">Catégorie : <?= $product->category_name ?></span>
         <p><?= $product->description ?></p>
-
+        <?php if ($isLoggedIn !== false) : ?>
         <div>
             <a class="btn btn-warning" href="edit&id=<?= $product->id ?>">Modifier</a>
             <a class="btn btn-danger" href="delete&id=<?= $product->id ?>">Supprimer</a>
         </div>
-
+        <?php endif; ?>
     </div>
 
 

@@ -1,4 +1,7 @@
- <?php
+<?php
+namespace models;
+
+ use PDO;
 
     class Database
     {

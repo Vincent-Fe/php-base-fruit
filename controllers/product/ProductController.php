@@ -1,8 +1,13 @@
 <?php
+namespace controllers\product;
 
+use controllers\Security;
+use models\product\ProductManager;
+use models\category\CategoryManager;
 
-require_once './models/product/ProductManager.php';
-require_once './models/category/CategoryManager.php';
+// require_once './models/product/ProductManager.php';
+// require_once './models/category/CategoryManager.php';
+// require_once './controllers/Security.php';
 
 class ProductController
 {
@@ -41,17 +46,13 @@ class ProductController
             // print_r($filteredByCategory);
             // echo "</pre>";
         }
-
-
-
-
-
         require_once './views/home.php';
     }
 
 
     public function getProduct()
     {
+        $isLoggedIn = Security::accessSession() ?? false;
         $id = $_GET['id'] ?? '';
         $product = $this->productManager->getProduct($id);
         // print_r($product);

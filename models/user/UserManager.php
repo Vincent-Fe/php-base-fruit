@@ -1,6 +1,7 @@
 <?php
-
-require_once './models/Database.php';
+namespace models\user;
+use models\Database;
+// require_once './models/Database.php';
 
 class UserManager extends Database
 {

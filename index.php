@@ -1,11 +1,25 @@
 <?php
 session_start();
+
+use controllers\Security;
+use controllers\user\UserController;
+use controllers\product\ProductController;
 // $pdo = require_once './data/database.php';
-require_once './controllers/product/ProductController.php';
-require_once './controllers/user/UserController.php';
+// require_once './controllers/product/ProductController.php';
+// require_once './controllers/user/UserController.php';
+// require_once './controllers/Security.php';
+
+function autoload($class)
+{
+    require_once "$class.php";
+}
+
+spl_autoload_register('autoload');
 
 $productController = new ProductController();
 $userController = new UserController();
+
+$isLoggedIn = Security::accessSession() ?? false;
 
 $page = $_GET['page'] ?? '';
 

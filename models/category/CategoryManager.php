@@ -1,5 +1,7 @@
 <?php
+namespace models\category;
 
+use models\Database;
 require_once './models/Database.php';
 
 class CategoryManager extends Database
